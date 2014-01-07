@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
 
   has_many :services, dependent: :destroy
   has_many :transactions
+  has_many :reviews
 end

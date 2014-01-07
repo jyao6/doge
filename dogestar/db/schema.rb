@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140107054348) do
+ActiveRecord::Schema.define(version: 20140107055948) do
 
   create_table "photos", force: true do |t|
     t.string   "url"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 20140107054348) do
   end
 
   add_index "photos", ["service_id"], name: "index_photos_on_service_id", using: :btree
+
+  create_table "reviews", force: true do |t|
+    t.integer  "rating"
+    t.text     "review"
+    t.integer  "user_id"
+    t.integer  "service_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reviews", ["service_id"], name: "index_reviews_on_service_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "services", force: true do |t|
     t.string   "name"
@@ -62,6 +74,9 @@ ActiveRecord::Schema.define(version: 20140107054348) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "photos", "services", name: "photos_service_id_fk"
+
+  add_foreign_key "reviews", "services", name: "reviews_service_id_fk"
+  add_foreign_key "reviews", "users", name: "reviews_user_id_fk"
 
   add_foreign_key "services", "users", name: "services_user_id_fk"
 
