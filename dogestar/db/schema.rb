@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140107055948) do
+ActiveRecord::Schema.define(version: 20140107061037) do
+
+  create_table "messages", force: true do |t|
+    t.text     "body"
+    t.integer  "to_id"
+    t.integer  "from_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["from_id"], name: "index_messages_on_from_id", using: :btree
+  add_index "messages", ["to_id"], name: "index_messages_on_to_id", using: :btree
 
   create_table "photos", force: true do |t|
     t.string   "url"
@@ -72,6 +83,9 @@ ActiveRecord::Schema.define(version: 20140107055948) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+
+  add_foreign_key "messages", "users", name: "messages_from_id_fk", column: "from_id"
+  add_foreign_key "messages", "users", name: "messages_to_id_fk", column: "to_id"
 
   add_foreign_key "photos", "services", name: "photos_service_id_fk"
 
