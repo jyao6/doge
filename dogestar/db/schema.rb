@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140107035918) do
+ActiveRecord::Schema.define(version: 20140107054348) do
 
   create_table "photos", force: true do |t|
     t.string   "url"
@@ -36,6 +36,18 @@ ActiveRecord::Schema.define(version: 20140107035918) do
   add_index "services", ["category"], name: "index_services_on_category", using: :btree
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
 
+  create_table "transactions", force: true do |t|
+    t.datetime "appt_time"
+    t.decimal  "price",      precision: 2, scale: 0
+    t.integer  "service_id"
+    t.integer  "buyer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["buyer_id"], name: "index_transactions_on_buyer_id", using: :btree
+  add_index "transactions", ["service_id"], name: "index_transactions_on_service_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
@@ -52,5 +64,8 @@ ActiveRecord::Schema.define(version: 20140107035918) do
   add_foreign_key "photos", "services", name: "photos_service_id_fk"
 
   add_foreign_key "services", "users", name: "services_user_id_fk"
+
+  add_foreign_key "transactions", "services", name: "transactions_service_id_fk"
+  add_foreign_key "transactions", "users", name: "transactions_buyer_id_fk", column: "buyer_id"
 
 end
