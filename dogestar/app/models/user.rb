@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  has_many :services, dependent: :destroy
+  has_many :transactions
+  has_many :reviews
+  has_many :sent, :class_name => "Message"
+  has_many :received, :class_name => "Message"
+
   before_save { email.downcase! }
 
   validates :name, presence: true, length: { maximum: 30 }
