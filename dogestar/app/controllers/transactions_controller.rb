@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :for_signed_in, only: [:new, :create]
+  before_action :for_signed_in, only: [:new, :create, :history]
 
   def new
   	@transaction = Transaction.new
@@ -15,6 +15,10 @@ class TransactionsController < ApplicationController
   	else
   	  render 'new'
   	end
+  end
+
+  def history
+  	@orders = Transaction.of_user(current_user.id)
   end
 
   private
