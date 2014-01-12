@@ -1,7 +1,6 @@
 Dogestar::Application.routes.draw do
-  resources :services
 
-  # root 'users'
+  root 'sessions#new' #TODO: replace
 
   # match '/newservice', to: 'services#new', via: 'get'
 
@@ -12,6 +11,7 @@ Dogestar::Application.routes.draw do
   # root 'welcome#index'
 
   resources :users
+  resources :services
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

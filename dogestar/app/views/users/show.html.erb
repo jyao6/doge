@@ -1,2 +1,9 @@
 <% provide(:title, @user.name) %>
+
+<% if signed_in? and current_user?(@user) %>
+<%= link_to "Edit profile", edit_user_path(@user) %>
+<% end %>
+
 <h1><%= @user.name %></h1>
+<img src=<%= @user.bio_pic %>>
+<%= @user.bio %>
