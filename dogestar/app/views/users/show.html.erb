@@ -2,6 +2,8 @@
 
 <% if signed_in? and current_user?(@user) %>
 <%= link_to "Edit profile", edit_user_path(@user) %>
+<p>
+<%= link_to "View order history", order_history_path %>
 <% end %>
 
 <h1><%= @user.name %></h1>
