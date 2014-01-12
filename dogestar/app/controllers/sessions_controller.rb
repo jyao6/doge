@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-
   def new
+    not_for_signed_in
   end
 
   def create
