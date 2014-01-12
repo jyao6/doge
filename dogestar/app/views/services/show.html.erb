@@ -10,7 +10,7 @@
 	<p>$<%= @service.price %></p>
 
 	<h4>Category</h4>
-	<p><%= @categories[@service.category] %></p>
+	<p><%= Service.categories[@service.category.to_i] %></p>
 
 	<h4>Description</h4>
 	<p><%= @service.description %></p>

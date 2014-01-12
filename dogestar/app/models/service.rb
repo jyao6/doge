@@ -1,7 +1,6 @@
 class Service < ActiveRecord::Base
   belongs_to :user
   has_many :photos, dependent: :destroy
-  has_many :reviews, dependent: :destroy
   has_many :transactions
 
   validates :name, presence: true, length: { maximum: 30 }
@@ -11,17 +10,21 @@ class Service < ActiveRecord::Base
 
   scope :approved, :conditions => {:legitimized => 1}
 
+
+  CATS = ["Music", "Culinary", "Academic", "Beauty", "Photography", "Sewing"]
+  CAT_DICT = Hash[CATS.zip (0...CATS.length)]
+  
   # CATS = { "Category 1"=>1, "Category 2"=>2, "Category 3"=>3}
 
-  # def self.categories
-  #   CATS.keys
-  # end
+  def self.categories
+    CAT_DICT.keys
+  end
 
-  # def category
-  #   CATS.key(read_attribute(:category))
-  # end
+  def category
+    CAT_DICT.key(read_attribute(:category))
+  end
 
-  # def category=(n)
-  #   write_attribute(:category, CATS[n])
-  # end
+  def category=(n)
+    write_attribute(:category, CAT_DICT[n])
+  end
 end

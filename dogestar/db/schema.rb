@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140112070523) do
+ActiveRecord::Schema.define(version: 20140112201038) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -36,14 +36,12 @@ ActiveRecord::Schema.define(version: 20140112070523) do
   create_table "reviews", force: true do |t|
     t.integer  "rating"
     t.text     "review"
-    t.integer  "user_id"
-    t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "transaction_id"
   end
 
-  add_index "reviews", ["service_id"], name: "index_reviews_on_service_id", using: :btree
-  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  add_index "reviews", ["transaction_id"], name: "index_reviews_on_transaction_id", using: :btree
 
   create_table "services", force: true do |t|
     t.string   "name"
@@ -90,8 +88,7 @@ ActiveRecord::Schema.define(version: 20140112070523) do
 
   add_foreign_key "photos", "services", name: "photos_service_id_fk"
 
-  add_foreign_key "reviews", "services", name: "reviews_service_id_fk"
-  add_foreign_key "reviews", "users", name: "reviews_user_id_fk"
+  add_foreign_key "reviews", "transactions", name: "reviews_transaction_id_fk"
 
   add_foreign_key "services", "users", name: "services_user_id_fk"
 

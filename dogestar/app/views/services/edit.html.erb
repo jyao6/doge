@@ -13,7 +13,7 @@
 
 	    <div class="form-group">
 	    	<%= label_tag(:category, "Categories") %>
-	    	<%= f.select(:category, options_for_select(@cat_dict, @service.category)) %>
+	    	<%= f.select(:category, options_for_select(Service.categories, @service.category)) %>
 	    </div>
 
 		<div class="form-group">

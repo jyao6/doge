@@ -1,7 +1,6 @@
 class ServicesController < ApplicationController
 	before_action :for_signed_in, only: [:edit, :update, :new, :create, :destroy]
 	before_action :legit_user, only: [:edit, :update, :destroy]
-	before_action :setup_categories
 
 	def new
 		@service = current_user.services.new
@@ -49,12 +48,6 @@ class ServicesController < ApplicationController
 			param_dict = params.require(:service).permit(:name, :price, :category, :description)
 			param_dict[:legitimized] = true
 			return param_dict
-		end
-
-		def setup_categories
-			# if you modify this, make sure to change the services model validation
-			@categories = ["Music", "Culinary", "Academic", "Beauty", "Photography", "Sewing"]
-			@cat_dict = Hash[@categories.zip (0...@categories.length)]
 		end
 
 		def legit_user
