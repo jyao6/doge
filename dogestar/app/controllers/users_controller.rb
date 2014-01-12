@@ -19,9 +19,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @my_profile = current_user?(@user)
-    @services = Service.approved.where(user_id: @user.id)
+    if User.exists?(id: params[:id])
+      @user = User.find(params[:id])
+      @my_profile = current_user?(@user)
+      @services = Service.approved.where(user_id: @user.id)
+    else
+      flash[:notice] =  "This user does not exist."
+      redirect_to root_path
+    end
   end
 
   def edit
