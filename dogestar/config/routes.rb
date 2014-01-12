@@ -17,7 +17,7 @@ Dogestar::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/signout', to: 'sessions#destroy',     via: 'get'
   match '/order/:service_id', to: 'transactions#new',     via: ['get', 'post'], as: 'order'
   match '/history', to: 'transactions#history',     via: ['get', 'post'], as: 'order_history'
 

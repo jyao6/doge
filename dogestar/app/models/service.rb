@@ -9,7 +9,7 @@ class Service < ActiveRecord::Base
   validates :category, presence: true, :numericality => { :only_integer => true , :greater_than_or_equal_to => 0, :less_than => 6}
   validates :description, presence: true
 
-  # scope :approved, :conditions => {:legitimized => 1}
+  scope :approved, :conditions => {:legitimized => 1}
 
   # CATS = { "Category 1"=>1, "Category 2"=>2, "Category 3"=>3}
 

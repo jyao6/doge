@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   private
     def not_for_signed_in
       if signed_in?
-        redirect_to current_user
+        redirect_to controller: "services", action: "index"
       end
     end
 

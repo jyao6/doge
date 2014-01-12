@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-	before_action :signed_in_user, only: [:edit, :update, :new, :create, :destroy]
+	before_action :for_signed_in, only: [:edit, :update, :new, :create, :destroy]
 	before_action :legit_user, only: [:edit, :update, :destroy]
 	before_action :setup_categories
 

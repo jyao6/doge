@@ -1,9 +1,9 @@
+<div>
 <% if signed_in? %>
-	<div>
-		<%= link_to 'Sign Out', '/signout' %>
-	</div>
+		<%= link_to 'Sign Out', '/signout' %> 
+		| <%= link_to 'Home', root_url %>
+		| <%= link_to 'Your Profile', current_user %>
 <% else %>
-	<div>
 		<%= link_to 'Sign In', '/signin' %>
-	</div>
 <% end %>
+ | <%= link_to "Post Your Service", controller: "services", action: "new" %></div>
