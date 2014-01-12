@@ -1,5 +1,7 @@
 Dogestar::Application.routes.draw do
-  resources :services
+  resources :services do
+    resources :reviews, only: [:new, :create, :destroy]
+  end
 
   # root 'users'
 
