@@ -12,10 +12,13 @@ Dogestar::Application.routes.draw do
 
   resources :users
   resources :services
+  resources :transactions, only: [:create]
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/order/:service_id', to: 'transactions#new',     via: ['get', 'post'], as: 'order'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

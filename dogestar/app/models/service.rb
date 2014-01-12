@@ -4,6 +4,8 @@ class Service < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :transactions
 
+  scope :approved, :conditions => {:legitimized => 1}
+
   CATS = { "Category 1"=>1, "Category 2"=>2, "Category 3"=>3}
 
   def self.categories

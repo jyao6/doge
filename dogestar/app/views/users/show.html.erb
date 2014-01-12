@@ -7,3 +7,9 @@
 <h1><%= @user.name %></h1>
 <img src=<%= @user.bio_pic %>>
 <%= @user.bio %>
+
+<h1><%= @user.name %>'s Services</h1>
+<% @services.each do |s| %>
+  <%= s.name %> costs <%= s.price %> dollars.
+  <%= link_to "Order now", order_path(s.id) %>.
+<% end %>

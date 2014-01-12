@@ -1,0 +1,16 @@
+<% provide(:title, 'Order') %>
+<h1>Order</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@transaction) do |f| %>
+
+      <%= f.label :appt_time, "Appointment Time" %>
+      <%= f.datetime_field :appt_time %>
+
+      <%= f.hidden_field :service_id, :value => params[:service_id]%>
+
+      <%= f.submit "Order", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
