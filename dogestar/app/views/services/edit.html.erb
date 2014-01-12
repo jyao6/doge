@@ -21,6 +21,9 @@
 	    	<%= f.text_area(:description, rows: 5, class: "form-control")%>
 	    </div>
 
-      <%= f.submit "Post Service", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Update Service", class: "btn btn-large btn-primary" %>
+      <div id="cancel" class="btn btn-large btn-primary" style="background-color:white;color:#3399FF"><%= link_to "Cancel", :back %></div>
+
     <% end %>
+
 </div>

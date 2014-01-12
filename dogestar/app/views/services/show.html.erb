@@ -1,0 +1,17 @@
+<div>
+	<h3><%= @user.name %></h3>
+
+	<br/>
+
+	<h4>Service Name</h4>
+	<p><%= @service.name %></p>
+
+	<h4>Price</h4>
+	<p>$<%= @service.price %></p>
+
+	<h4>Category</h4>
+	<p><%= @categories[@service.category] %></p>
+
+	<h4>Description</h4>
+	<p><%= @service.description %></p>
+</div>

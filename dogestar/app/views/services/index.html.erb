@@ -1,0 +1,9 @@
+<div>
+	<% @services.each do |s| %>
+		<% s_user = User.find(s.user_id) %>
+		<h3><%= link_to s.name, s %></h3>
+		<h4>By <%= link_to s_user.name, s_user %></h4>
+		<p>$<%= s.price %></p>
+		<br />
+	<% end %>
+</div>
