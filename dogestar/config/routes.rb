@@ -1,9 +1,5 @@
 Dogestar::Application.routes.draw do
-  resources :services do
-    resources :reviews, only: [:new, :create, :destroy]
-  end
-
-  # root 'users'
+  root 'sessions#new' #TODO: replace
 
   # match '/newservice', to: 'services#new', via: 'get'
 
@@ -14,10 +10,17 @@ Dogestar::Application.routes.draw do
   # root 'welcome#index'
 
   resources :users
+  resources :services do
+    resources :reviews, only: [:new, :create, :destroy]
+  end
+  resources :transactions, only: [:create]
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/order/:service_id', to: 'transactions#new',     via: ['get', 'post'], as: 'order'
+  match '/history', to: 'transactions#history',     via: ['get', 'post'], as: 'order_history'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

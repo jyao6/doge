@@ -1,0 +1,6 @@
+<h1>Your Order History</h1>
+
+<% @orders.each do |o| %>
+  Ordered <%= link_to o.service.name, service_path(o.service_id) %> on <%= o.updated_at %> for $<%= "%.2f" % o.price %>.
+  <p>
+<% end %>

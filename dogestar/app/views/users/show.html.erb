@@ -1,2 +1,21 @@
 <% provide(:title, @user.name) %>
+
+<% if signed_in? and current_user?(@user) %>
+<%= link_to "Edit profile", edit_user_path(@user) %>
+<p>
+<%= link_to "View order history", order_history_path %>
+<% end %>
+
 <h1><%= @user.name %></h1>
+<img src=<%= @user.bio_pic %>>
+<%= @user.bio %>
+
+<h1><%= @user.name %>'s Services</h1>
+<% @services.each do |s| %>
+  <%= s.name %> costs <%= s.price %> dollars.
+  <% if @my_profile %>
+      <%= link_to "Edit", edit_service_path(s.id) %>
+  <% else %>
+    <%= link_to "Order now", order_path(s.id) %>.
+  <% end %>
+<% end %>
