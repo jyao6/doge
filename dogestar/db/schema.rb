@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140108001339) do
+ActiveRecord::Schema.define(version: 20140112070523) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20140108001339) do
 
   create_table "transactions", force: true do |t|
     t.datetime "appt_time"
-    t.decimal  "price",      precision: 2, scale: 0
+    t.decimal  "price",      precision: 10, scale: 2
     t.integer  "service_id"
     t.integer  "buyer_id"
     t.datetime "created_at"
