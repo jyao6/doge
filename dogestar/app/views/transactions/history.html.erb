@@ -6,6 +6,8 @@
     Cancelled
   <% elsif o.review.nil? %>
     Write a review
+  <% else %>
+    Rated <%= o.review.rating %> out of 5.
   <% end %>
   <p>
 <% end %>
