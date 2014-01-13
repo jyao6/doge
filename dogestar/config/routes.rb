@@ -20,6 +20,8 @@ Dogestar::Application.routes.draw do
   match '/signout', to: 'sessions#destroy',     via: 'get'
   match '/order/:service_id', to: 'transactions#new',     via: ['get', 'post'], as: 'order'
   match '/history', to: 'transactions#history',     via: ['get', 'post'], as: 'order_history'
+  match '/cancel/:id', to: 'transactions#cancel',     via: ['get', 'post'], as: 'cancel_order'
+  match '/upcoming', to: 'transactions#upcoming',     via: ['get', 'post'], as: 'upcoming'
 
 
   # Example of regular route:

@@ -21,6 +21,21 @@ class TransactionsController < ApplicationController
   	@orders = Transaction.of_user(current_user.id)
   end
 
+  def cancel
+    @transaction = Transaction.find(params[:id])
+    if current_user?(@transaction.buyer) or current_user?(@transaction.seller)
+      @transaction.status = :cancelled
+      @transaction.save
+      flash[:success] = "Order successfully cancelled."
+    end
+    redirect_to current_user
+  end
+
+  def upcoming
+    @bought = Transaction.active.future.where(buyer_id: current_user.id)
+    @sold = Transaction.joins(:service).active.future.where(services: {user_id: current_user.id})
+  end
+
   private
 
     def transaction_params

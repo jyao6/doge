@@ -4,6 +4,8 @@ class Transaction < ActiveRecord::Base
   has_one :review, dependent: :destroy
 
   scope :of_user, ->(uid) { where(buyer_id: uid) }
+  scope :future, -> { where("appt_time > ?", Time.now) }
+  scope :active, -> { where status: :ok }
 
   STATUSES = { ok: 0, cancelled: 1}
 
@@ -13,6 +15,10 @@ class Transaction < ActiveRecord::Base
 
   def status=(s)
     write_attribute(:status, STATUSES[s])
+  end
+
+  def seller
+    self.service.user
   end
 
 end

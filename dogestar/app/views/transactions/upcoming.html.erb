@@ -1,0 +1,12 @@
+<h1>Purchased by you</h1>
+<% @bought.each do |t| %>
+  <%=t.service.name %> scheduled for <%= t.appt_time %>.
+  <%= link_to "Cancel", cancel_order_path(t.id) %>
+  <p>
+<% end %>
+
+<h1>Purchased from you</h1>
+<% @sold.each do |t| %>
+  <%=t.service.name %>
+  <%= link_to "Cancel", cancel_order_path(t.id) %>
+<% end %>
