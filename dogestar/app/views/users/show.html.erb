@@ -9,7 +9,7 @@
 <% end %>
 
 <h1><%= @user.name %></h1>
-<img src=<%= @user.bio_pic %>>
+<%= image_tag @user.avatar.url(:medium) %>
 <%= @user.bio %>
 
 <h1><%= @user.name %>'s Services</h1>

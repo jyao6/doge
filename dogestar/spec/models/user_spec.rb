@@ -9,7 +9,7 @@ describe User do
   it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:bio) }
-  it { should respond_to(:bio_pic) }
+  it { should respond_to(:avatar) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
