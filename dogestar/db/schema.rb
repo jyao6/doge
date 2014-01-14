@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140114215634) do
+ActiveRecord::Schema.define(version: 20140114232627) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -25,10 +25,13 @@ ActiveRecord::Schema.define(version: 20140114215634) do
   add_index "messages", ["to_id"], name: "index_messages_on_to_id", using: :btree
 
   create_table "photos", force: true do |t|
-    t.string   "url"
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "img_file_name"
+    t.string   "img_content_type"
+    t.integer  "img_file_size"
+    t.datetime "img_updated_at"
   end
 
   add_index "photos", ["service_id"], name: "index_photos_on_service_id", using: :btree
