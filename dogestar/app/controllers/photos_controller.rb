@@ -11,9 +11,7 @@ class PhotosController < ApplicationController
   def create
     @photo = Photo.new(photo_params)
     @photo.service_id = params[:service_id]
-    if @photo.save
-      flash[:success] = "Photo added!"
-    else
+    if !@photo.save
       render 'new'
     end
   end
