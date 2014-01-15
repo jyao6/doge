@@ -1,8 +1,4 @@
-<% if @user %>
-  <% subject = @user %>
-<% elsif @service %>
-  <% subject = @service %>
-<% end %>
+<% subject = @user || @service || @photo %>
 
 <% if subject.errors.any? %>
   <div id="error_explanation">
