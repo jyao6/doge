@@ -13,7 +13,7 @@ Dogestar::Application.routes.draw do
   resources :services do
     resources :reviews, only: [:new, :create, :destroy]
     resources :transactions, only: [:new, :create]
-    resources :photos, only: [:new, :create]
+    resources :photos, only: [:new, :create, :index]
   end
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'
