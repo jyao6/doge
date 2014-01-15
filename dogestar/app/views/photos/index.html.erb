@@ -1,0 +1,7 @@
+<% if @can_edit %>
+  <p><%= link_to "Add photos", new_service_photo_path(@service.id) %></p>
+<% end %>
+
+<% @service.photos.each do |p| %>
+  <%= image_tag p.img(:medium)  %>
+<% end %>
