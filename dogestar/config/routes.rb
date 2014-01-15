@@ -22,6 +22,7 @@ Dogestar::Application.routes.draw do
   match '/history', to: 'transactions#history',     via: ['get', 'post'], as: 'order_history'
   match '/cancel/:id', to: 'transactions#cancel',     via: ['get', 'post'], as: 'cancel_order'
   match '/upcoming', to: 'transactions#upcoming',     via: ['get', 'post'], as: 'upcoming'
+  match '/photos/:service_id', to: 'photos#album',     via: ['get', 'post'], as: 'album'
 
 
   # Example of regular route:
