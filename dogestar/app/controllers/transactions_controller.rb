@@ -9,6 +9,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     @transaction.price = final_price(Service.find(@transaction.service_id).price)
     @transaction.buyer_id = current_user.id
+    @transaction.status = :ok
   	if @transaction.save
   	  flash[:success] = "Order successful!"
   	  redirect_to current_user
