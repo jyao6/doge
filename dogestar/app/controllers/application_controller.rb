@@ -17,4 +17,17 @@ class ApplicationController < ActionController::Base
         redirect_to signin_url, notice: "Please sign in."
       end
     end
+
+    def for_service_owner(service_id)
+      if Service.exists?(id: service_id)
+        @service = Service.find(service_id)
+        if @service.user_id != current_user.id
+          flash[:notice] = "You don't have permission to edit this service."
+          redirect_to action: "index" 
+        end
+      else
+        flash[:notice] =  "This service does not exist. :("
+        redirect_to root_path
+      end     
+    end
 end
