@@ -12,17 +12,16 @@ Dogestar::Application.routes.draw do
   resources :users
   resources :services do
     resources :reviews, only: [:new, :create, :destroy]
+    resources :transactions, only: [:new, :create]
+    resources :photos, only: [:new, :create]
   end
-  resources :transactions, only: [:create]
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'get'
-  match '/order/:service_id', to: 'transactions#new',     via: ['get', 'post'], as: 'order'
   match '/history', to: 'transactions#history',     via: ['get', 'post'], as: 'order_history'
   match '/cancel/:id', to: 'transactions#cancel',     via: ['get', 'post'], as: 'cancel_order'
   match '/upcoming', to: 'transactions#upcoming',     via: ['get', 'post'], as: 'upcoming'
-  match '/photos/:service_id', to: 'photos#album',     via: ['get', 'post'], as: 'album'
 
 
   # Example of regular route:
