@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140114232627) do
+ActiveRecord::Schema.define(version: 20140116051901) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -51,13 +51,15 @@ ActiveRecord::Schema.define(version: 20140114232627) do
     t.integer  "price"
     t.integer  "category"
     t.text     "description"
-    t.boolean  "legitimized", default: false
+    t.boolean  "legitimized",    default: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cover_photo_id"
   end
 
   add_index "services", ["category"], name: "index_services_on_category", using: :btree
+  add_index "services", ["cover_photo_id"], name: "services_cover_photo_id_fk", using: :btree
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
 
   create_table "transactions", force: true do |t|
@@ -97,6 +99,7 @@ ActiveRecord::Schema.define(version: 20140114232627) do
 
   add_foreign_key "reviews", "transactions", name: "reviews_transaction_id_fk"
 
+  add_foreign_key "services", "photos", name: "services_cover_photo_id_fk", column: "cover_photo_id"
   add_foreign_key "services", "users", name: "services_user_id_fk"
 
   add_foreign_key "transactions", "services", name: "transactions_service_id_fk"
