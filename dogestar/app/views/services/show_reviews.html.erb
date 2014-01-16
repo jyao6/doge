@@ -1,0 +1,11 @@
+<div>
+	<% @rel_reviews.each do |r| %>
+		<div>
+			<h4>Rating: <%= r.rating %> Stars</h4>
+			<% reviewer = User.find(Transaction.find(r.transaction_id).buyer_id) %>
+			<h5><%= link_to reviewer.name, user_path(reviewer.id) %></h5>
+			<p><%= r.review %></p>
+		</div>
+		<br/>
+	<% end %>
+</div>

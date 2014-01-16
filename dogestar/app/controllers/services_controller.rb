@@ -42,6 +42,10 @@ class ServicesController < ApplicationController
 		@services = Service.order(created_at: :desc)
 	end
 
+	def show_reviews
+		@rel_reviews = Review.joins(:transaction).where(transactions: {service_id: params[:id]})
+	end
+
 	private
 		def service_params
 			# TODO: remove legitimized in the future

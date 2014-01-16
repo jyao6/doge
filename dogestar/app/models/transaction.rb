@@ -3,6 +3,8 @@ class Transaction < ActiveRecord::Base
   belongs_to :buyer, :class_name => "User"
   has_one :review, dependent: :destroy
 
+  validates :appt_time, presence: true
+
   scope :of_user, ->(uid) { where(buyer_id: uid) }
   scope :future, -> { where("appt_time > ?", Time.now) }
   scope :active, -> { where status: :ok }

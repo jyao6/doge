@@ -3,7 +3,18 @@
 		<% s_user = User.find(s.user_id) %>
 		<h3><%= link_to s.name, s %></h3>
 		<h4>By <%= link_to s_user.name, s_user %></h4>
-		<p>$<%= s.price %></p>
+		<% if s.avg_rating? %>
+			<h4>Rating: <%= s.avg_rating %> Stars</h4>
+		<% else %>
+			<h4>Unrated</h4>
+		<% end %>
+		<p>$<%= s.price %> -- 
+			<% if s_user == current_user %>
+				<%= link_to "Edit", edit_service_path(s.id) %>
+			<% else %>
+				<%= link_to "Order Now", new_service_transaction_path(s.id) %>
+			<% end %>
+		</p>
 		<br />
 	<% end %>
 </div>

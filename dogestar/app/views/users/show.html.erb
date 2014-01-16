@@ -16,7 +16,7 @@
 <% @services.each do |s| %>
   <%= s.name %> costs <%= s.price %> dollars.
   <% if @my_profile %>
-      <%= link_to "Edit", edit_service_path(s.id) %>
+    <%= link_to "Edit", edit_service_path(s.id) %>
   <% else %>
     <%= link_to "Order now", new_service_transaction_path(s.id) %>.
   <% end %>

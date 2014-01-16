@@ -1,7 +1,12 @@
+<!-- TODO fix poor design -->
 <% if @user %>
   <% subject = @user %>
 <% elsif @service %>
   <% subject = @service %>
+<% elsif @transaction %>
+  <% subject = @transaction %>
+<% elsif @review %>
+  <% subject = @review %>
 <% end %>
 
 <% if subject.errors.any? %>

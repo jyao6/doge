@@ -4,8 +4,10 @@
   Ordered <%= link_to o.service.name, service_path(o.service_id) %> on <%= o.updated_at %> for $<%= "%.2f" % o.price %>.
   <% if o.status == :cancelled %>
     Cancelled
-  <% elsif o.review.nil? %>
-    Write a review
+  <% elsif o.review.nil? and o.status == :ok %>
+  	<% if o.appt_time < Time.now %>
+	    <%= link_to "Rate/review", new_service_transaction_review_path(o.service_id, o.id) %>.
+	<% end %>
   <% else %>
     Rated <%= o.review.rating %> out of 5.
   <% end %>

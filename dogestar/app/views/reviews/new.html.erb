@@ -1,0 +1,22 @@
+<div>
+	<h4>My Rating for <%= User.find(@service.user_id).name %>'s Service</h4>
+	<h3><%= @service.name %></h3>
+	
+	<div>
+		<%= form_for [@service, @transaction, @review] do |f| %>
+			<%= render 'shared/error_messages' %>
+
+		    <div class="form-group">
+		    	<%= label_tag(:rating, "Number of Stars") %>
+		    	<%= f.select(:rating, (1..5).to_a.reverse) %>
+		    </div>
+
+			<div class="form-group">
+		    	<%= label_tag(:review, "Review (optional)") %>
+		    	<%= f.text_area(:review, rows: 5, class: "form-control")%>
+		    </div>
+
+	      <%= f.submit "Post Review", class: "btn btn-large btn-primary" %>
+	    <% end %>
+	</div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140114232627) do
+ActiveRecord::Schema.define(version: 20140116060300) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -51,10 +51,11 @@ ActiveRecord::Schema.define(version: 20140114232627) do
     t.integer  "price"
     t.integer  "category"
     t.text     "description"
-    t.boolean  "legitimized", default: false
+    t.boolean  "legitimized",                         default: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "avg_rating",  precision: 4, scale: 2
   end
 
   add_index "services", ["category"], name: "index_services_on_category", using: :btree

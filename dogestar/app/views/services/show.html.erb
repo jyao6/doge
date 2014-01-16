@@ -6,6 +6,21 @@
 	<h4>Service Name</h4>
 	<p><%= @service.name %></p>
 
+	<h5> 
+		<% if @user == current_user %>
+			<%= link_to "Edit", edit_service_path(@service.id) %>
+		<% else %>
+			<%= link_to "Order Now", new_service_transaction_path(@service.id) %>
+		<% end %>
+	</h5>
+
+	<br/> 
+
+
+
+	<h4>Average Rating</h4>
+	<p><%= @service.avg_rating %> Stars (<%= link_to "See Reviews", controller: "services", action:"show_reviews" %>)</p>
+
 	<h4>Price</h4>
 	<p>$<%= @service.price %></p>
 
