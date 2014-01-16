@@ -1,3 +1,5 @@
+<% provide(:title, "Upload photos") %>
+
 <%= form_for @photo, :url => service_photos_path, html: { multipart: true } do |f| %>
   <%= render 'shared/error_messages' %>
   <%= f.label :img, "Choose photos" %>
