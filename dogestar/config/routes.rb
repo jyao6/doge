@@ -14,6 +14,8 @@ Dogestar::Application.routes.draw do
     resources :reviews, only: [:new, :create, :destroy]
     resources :transactions, only: [:new, :create]
     resources :photos, only: [:new, :create, :index]
+    match '/choose_cover', to: 'photos#choose_cover', via: 'get', as: 'choose_cover'
+    match '/make_cover', to: 'photos#make_cover', via: 'post', as: 'make_cover'
   end
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup', to: 'users#new', via: 'get'

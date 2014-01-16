@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
     def for_service_owner(service_id)
       if Service.exists?(id: service_id)
+        for_signed_in
         @service = Service.find(service_id)
         if @service.user_id != current_user.id
           flash[:notice] = "You don't have permission to edit this service."

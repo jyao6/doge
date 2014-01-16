@@ -1,6 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :for_signed_in, only: [:new, :create]
-  before_action only: [:new, :create] do
+  before_action only: [:new, :create, :choose_cover, :make_cover] do
     for_service_owner(params[:service_id])
   end
 
@@ -24,6 +23,13 @@ class PhotosController < ApplicationController
       flash[:notice] =  "This service does not exist. :("
 	  redirect_to root_path
     end
+  end
+
+
+  def choose_cover
+  end
+
+  def make_cover
   end
 
   private

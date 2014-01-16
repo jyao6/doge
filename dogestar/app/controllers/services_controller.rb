@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-	before_action :for_signed_in, only: [:edit, :update, :new, :create, :destroy]
+	before_action :for_signed_in, only: [:new, :create]
 	before_action only: [:edit, :update, :destroy] do 
 	  for_service_owner(params[:id])
 	end
