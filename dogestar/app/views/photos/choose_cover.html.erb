@@ -1,0 +1,7 @@
+Pick a cover photo.
+<p>
+<% @service.photos.each do |p| %>
+<%= link_to "Choose this", service_make_cover_path(@service.id, p.id), method: :post %>
+  <%= image_tag p.img(:thumb)  %>
+  <p>
+<% end %>

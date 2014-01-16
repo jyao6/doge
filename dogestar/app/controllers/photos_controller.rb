@@ -30,6 +30,11 @@ class PhotosController < ApplicationController
   end
 
   def make_cover
+  	if Photo.exists?(id: params[:id])
+  	  @service.cover_photo_id = params[:id]
+  	  @service.save
+    end
+    redirect_to service_photos_path(@service.id)
   end
 
   private
