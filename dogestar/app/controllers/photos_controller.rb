@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_action only: [:new, :create, :choose_cover, :make_cover] do
+  before_action only: [:new, :create, :choose_cover, :make_cover, :remove, :destroy] do
     for_service_owner(params[:service_id])
   end
 
@@ -35,6 +35,12 @@ class PhotosController < ApplicationController
   	  @service.save
     end
     redirect_to service_photos_path(@service.id)
+  end
+
+  def destroy
+    Photo.find(params[:id]).destroy
+    flash[:success] = "Photo deleted."
+    redirect_to service_remove_photos_path(params[:service_id])
   end
 
   private

@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
   belongs_to :service
-  has_one :cover_service, class_name: "Service", dependent: :nullify
+  has_one :cover_service, class_name: "Service", foreign_key: "cover_photo_id", dependent: :nullify
 
   has_attached_file :img, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/user-albums/:style/missing.png"
 
