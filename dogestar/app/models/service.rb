@@ -1,6 +1,7 @@
 class Service < ActiveRecord::Base
   belongs_to :user
   has_many :photos, dependent: :destroy
+  belongs_to :cover_photo, class_name: "Photo"
   has_many :transactions
 
   validates :name, presence: true, length: { maximum: 30 }
@@ -18,6 +19,14 @@ class Service < ActiveRecord::Base
 
   def self.categories
     CAT_DICT.keys
+  end
+
+  def album_cover
+    if cover_photo.nil?
+      photos.first_or_initialize.img
+    else
+      cover_photo.img
+    end
   end
 
   def category

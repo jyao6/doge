@@ -1,14 +1,4 @@
-<!-- TODO fix poor design -->
-<% if @user %>
-  <% subject = @user %>
-<% elsif @service %>
-  <% subject = @service %>
-<% elsif @transaction %>
-  <% subject = @transaction %>
-<% elsif @review %>
-  <% subject = @review %>
-<% end %>
-
+<% subject = @transaction || @service || @user || @photo %>
 <% if subject.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-error">

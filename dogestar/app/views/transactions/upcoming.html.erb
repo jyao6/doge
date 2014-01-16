@@ -1,3 +1,4 @@
+<% provide(:title, "Upcoming") %>
 <h1>Purchased by you</h1>
 <% @bought.each do |t| %>
   <%=t.service.name %> scheduled for <%= t.appt_time %>.

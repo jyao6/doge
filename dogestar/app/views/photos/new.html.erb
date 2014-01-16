@@ -1,0 +1,13 @@
+<% provide(:title, "Upload photos") %>
+
+<%= form_for @photo, :url => service_photos_path, html: { multipart: true } do |f| %>
+  <%= render 'shared/error_messages' %>
+  <%= f.label :img, "Choose photos" %>
+  <%= f.file_field :img, multiple: true, name: 'photo[img]' %>
+<% end %>
+
+<div class="upload-success">
+</div>
+
+<% # jquery upload template # %>
+<script id="template-upload" type="text/x-tmpl"><div class="upload">{%=o.name%}<div class="progress"><div class="progress-bar" role="progressbar" style="width: 45%; height: 100%"></div></div></div></script>

@@ -1,6 +1,8 @@
 class ServicesController < ApplicationController
-	before_action :for_signed_in, only: [:edit, :update, :new, :create, :destroy]
-	before_action :legit_user, only: [:edit, :update, :destroy]
+	before_action :for_signed_in, only: [:new, :create]
+	before_action only: [:edit, :update, :destroy] do 
+	  for_service_owner(params[:id])
+	end
 
 	def new
 		@service = current_user.services.new
@@ -53,18 +55,5 @@ class ServicesController < ApplicationController
 			param_dict[:legitimized] = true
 			return param_dict
 		end
-
-		def legit_user
-			if Service.exists?(id: params[:id])
-				@service = Service.find(params[:id])
-				if @service.user_id != current_user.id
-					flash[:notice] = "You don't have permission to edit this service."
-					redirect_to action: "index" 
-				end
-			else
-				flash[:notice] =  "This service does not exist. :("
-				redirect_to action: "index"
-			end			
-	    end
 
 end

@@ -4,7 +4,6 @@
 	
 	<div>
 		<%= form_for [@service, @transaction, @review] do |f| %>
-			<%= render 'shared/error_messages' %>
 
 		    <div class="form-group">
 		    	<%= label_tag(:rating, "Number of Stars") %>

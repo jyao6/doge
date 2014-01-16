@@ -15,6 +15,7 @@
 <h1><%= @user.name %>'s Services</h1>
 <% @services.each do |s| %>
   <%= s.name %> costs <%= s.price %> dollars.
+      <%= link_to "View photos", service_photos_path(s.id) %>.
   <% if @my_profile %>
     <%= link_to "Edit", edit_service_path(s.id) %>
   <% else %>
