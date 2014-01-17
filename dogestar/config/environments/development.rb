@@ -29,4 +29,14 @@ Dogestar::Application.configure do
 
   # ImageMagick path. Obtained from which convert
   Paperclip.options[:command_path] = "/usr/local/bin/"
+
+  # Mailer settings
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'example.com',
+    user_name:            '<username>',
+    password:             '<password>',
+    authentication:       'plain',
+    enable_starttls_auto: true  }
 end
