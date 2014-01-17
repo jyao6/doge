@@ -7,10 +7,11 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new(transaction_params)
-    @transaction.price = final_price(Service.find(@transaction.service_id).price)
+    @transaction.price = final_price(@transaction.service.price)
     @transaction.buyer_id = current_user.id
     @transaction.status = :ok
   	if @transaction.save
+      OrderNotification.create(user_id: @transaction.service.user_id, sender_id: current_user.id)
   	  flash[:success] = "Order successful!"
   	  redirect_to current_user
   	else
@@ -27,6 +28,8 @@ class TransactionsController < ApplicationController
     if current_user?(@transaction.buyer) or current_user?(@transaction.seller)
       @transaction.status = :cancelled
       @transaction.save
+      send_to = current_user?(@transaction.buyer) ? @transaction.seller.id : @transaction.buyer_id
+      CancelNotification.create(user_id: send_to, sender_id: current_user.id)
       flash[:success] = "Order successfully cancelled."
     end
     redirect_to current_user

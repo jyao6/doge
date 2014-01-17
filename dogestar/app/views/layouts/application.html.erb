@@ -9,6 +9,10 @@
 <body>
 <%= render 'layouts/header' %>
 <div class="container">
+  <% find_notifications %>
+  <% if @can_clear %>
+    <%= link_to "Clear notifications", clear_notifications_path %>
+  <% end %>
   <% flash.each do |key, value| %>
     <%= content_tag(:div, value, class: "alert alert-#{key}") %>
   <% end %>

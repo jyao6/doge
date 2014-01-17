@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116060300) do
+ActiveRecord::Schema.define(version: 20140117065739) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20140116060300) do
 
   add_index "messages", ["from_id"], name: "index_messages_on_from_id", using: :btree
   add_index "messages", ["to_id"], name: "index_messages_on_to_id", using: :btree
+
+  create_table "notifications", force: true do |t|
+    t.integer "user_id"
+    t.string  "type"
+    t.integer "sender_id"
+  end
+
+  add_index "notifications", ["sender_id"], name: "notifications_sender_id_fk", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "photos", force: true do |t|
     t.integer  "service_id"
@@ -51,12 +60,12 @@ ActiveRecord::Schema.define(version: 20140116060300) do
     t.integer  "price"
     t.integer  "category"
     t.text     "description"
-    t.boolean  "legitimized", default: false
+    t.boolean  "legitimized",                            default: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "avg_rating",  precision: 4, scale: 2
     t.integer  "cover_photo_id"
+    t.decimal  "avg_rating",     precision: 4, scale: 2
   end
 
   add_index "services", ["category"], name: "index_services_on_category", using: :btree
@@ -95,6 +104,9 @@ ActiveRecord::Schema.define(version: 20140116060300) do
 
   add_foreign_key "messages", "users", name: "messages_from_id_fk", column: "from_id"
   add_foreign_key "messages", "users", name: "messages_to_id_fk", column: "to_id"
+
+  add_foreign_key "notifications", "users", name: "notifications_sender_id_fk", column: "sender_id"
+  add_foreign_key "notifications", "users", name: "notifications_user_id_fk"
 
   add_foreign_key "photos", "services", name: "photos_service_id_fk"
 
