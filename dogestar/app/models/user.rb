@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_many :sent, :class_name => "Message"
   has_many :received, :class_name => "Message"
+  has_many :notifications
 
   #TODO: medium and thumb size options should be altered. these were defaults. also need actual default photo!
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/avatars/:style/missing.png"

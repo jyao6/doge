@@ -27,6 +27,7 @@ Dogestar::Application.routes.draw do
   match '/cancel/:id', to: 'transactions#cancel',     via: ['get', 'post'], as: 'cancel_order'
   match '/upcoming', to: 'transactions#upcoming',     via: ['get', 'post'], as: 'upcoming'
   match '/clear-notifications', to: 'notifications#clear',     via: ['get', 'post'], as: 'clear_notifications'
+  match '/notifications', to: 'notifications#index',     via: ['get', 'post'], as: 'notifications'
 
   get 'services/:id/reviews' => 'services#show_reviews'
 
