@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117200038) do
+ActiveRecord::Schema.define(version: 20140118052929) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -25,10 +25,12 @@ ActiveRecord::Schema.define(version: 20140117200038) do
   add_index "messages", ["to_id"], name: "index_messages_on_to_id", using: :btree
 
   create_table "notifications", force: true do |t|
-    t.integer "user_id"
-    t.string  "type"
-    t.integer "sender_id"
-    t.boolean "cleared",   default: false
+    t.integer  "user_id"
+    t.string   "type"
+    t.integer  "sender_id"
+    t.boolean  "cleared",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "notifications", ["sender_id"], name: "notifications_sender_id_fk", using: :btree
