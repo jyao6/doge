@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :for_signed_in
 
   def index
-    @notifications = current_user.notifications
+    @notifications = current_user.notifications.order(created_at: :desc)
   end
 
   def clear
