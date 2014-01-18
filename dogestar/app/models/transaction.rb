@@ -9,7 +9,7 @@ class Transaction < ActiveRecord::Base
   scope :future, -> { where("appt_time > ?", Time.now) }
   scope :active, -> { where status: :ok }
 
-  STATUSES = { ok: 0, cancelled: 1}
+  STATUSES = { ok: 0, buyer_cancel: 1, seller_cancel: 2 }
 
   def status
     STATUSES.key(read_attribute(:status))
@@ -21,6 +21,21 @@ class Transaction < ActiveRecord::Base
 
   def seller
     self.service.user
+  end
+
+end
+
+class TransactionObserver < ActiveRecord::Observer
+  observe :transaction
+
+  def after_save(transaction)
+    if transaction.status == :ok
+      OrderNotification.create(user_id: transaction.service.user_id, sender_id: transaction.buyer_id)
+    elsif transaction.status == :buyer_cancel
+      CancelNotification.create(user_id: transaction.service.user_id, sender_id: transaction.buyer_id)
+    elsif transaction.status == :seller_cancel
+      CancelNotification.create(user_id: transaction.buyer_id, sender_id: transaction.service.user_id)
+    end
   end
 
 end
