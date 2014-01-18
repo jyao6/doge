@@ -31,7 +31,6 @@ Dogestar::Application.configure do
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
   # Mailer settings
-
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true

@@ -3,6 +3,8 @@ class Transaction < ActiveRecord::Base
   belongs_to :buyer, :class_name => "User"
   has_one :review, dependent: :destroy
 
+  after_save :send_notifications
+
   validates :appt_time, presence: true
 
   scope :of_user, ->(uid) { where(buyer_id: uid) }
@@ -23,19 +25,15 @@ class Transaction < ActiveRecord::Base
     self.service.user
   end
 
-end
-
-class TransactionObserver < ActiveRecord::Observer
-  observe :transaction
-
-  def after_save(transaction)
-    if transaction.status == :ok
-      OrderNotification.create(user_id: transaction.service.user_id, sender_id: transaction.buyer_id)
-    elsif transaction.status == :buyer_cancel
-      CancelNotification.create(user_id: transaction.service.user_id, sender_id: transaction.buyer_id)
-    elsif transaction.status == :seller_cancel
-      CancelNotification.create(user_id: transaction.buyer_id, sender_id: transaction.service.user_id)
+  def send_notifications
+    if self.status == :ok
+      OrderNotification.create(user_id: self.service.user_id, sender_id: self.buyer_id)
+    elsif self.status == :buyer_cancel
+      CancelNotification.create(user_id: self.service.user_id, sender_id: self.buyer_id)
+    elsif self.status == :seller_cancel
+      CancelNotification.create(user_id: self.buyer_id, sender_id: self.service.user_id)
     end
+    return true
   end
 
 end
