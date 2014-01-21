@@ -2,6 +2,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :service
   belongs_to :buyer, :class_name => "User"
   has_one :review, dependent: :destroy
+  has_many :notifications, :as => :notifiable
 
   after_save :send_notifications
 
@@ -27,13 +28,14 @@ class Transaction < ActiveRecord::Base
 
   def send_notifications
     if self.status == :ok
-      OrderNotification.create(user_id: self.service.user_id, sender_id: self.buyer_id)
+      record = OrderNotification.new(user_id: self.service.user_id, sender_id: self.buyer_id)
     elsif self.status == :buyer_cancel
-      CancelNotification.create(user_id: self.service.user_id, sender_id: self.buyer_id)
+      record = CancelNotification.new(user_id: self.service.user_id, sender_id: self.buyer_id)
     elsif self.status == :seller_cancel
-      CancelNotification.create(user_id: self.buyer_id, sender_id: self.service.user_id)
+      record = CancelNotification.new(user_id: self.buyer_id, sender_id: self.service.user_id)
     end
-    return true
+    record.notifiable = self
+    record.save
   end
 
 end
