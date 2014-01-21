@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     if user.nil? or user.reset_password.nil?
       flash[:error] = "Invalid reset URL."
       redirect_to(root_path)
-    elsif (user.reset_password.token != User.encrypt(params[:token])) or (DateTime.now > (user.reset_password.updated_at + 1.hours))
+    elsif (user.reset_password.token != User.encrypt(params[:token])) or (user.reset_password.updated_at < 1.hours.ago)
       user.reset_password.destroy
       flash[:error] = "Reset URL expired. Please request a new reset URL to be emailed to you."
       redirect_to(forgot_password_path)
