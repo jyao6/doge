@@ -3,6 +3,8 @@
 <% if signed_in? and current_user?(@user) %>
 <%= link_to "Edit profile", edit_user_path(@user) %>
 <p>
+<%= link_to "Change password", change_password_path %>
+<p>
 <%= link_to "View order history", order_history_path %>
 <p>
 <%= link_to "View upcoming appointments", upcoming_path %>

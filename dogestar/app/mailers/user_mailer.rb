@@ -7,4 +7,10 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject: 'Welcome to Cadenza!')
   end
 
+  def reset_password(user, token)
+    @token = token
+    @user = user
+    mail(to: @user.email, subject: 'Reset Your Password')
+  end
+
 end
