@@ -1,4 +1,6 @@
 class Notification < ActiveRecord::Base
+  include CommunityHelper
+
   belongs_to :user
   belongs_to :sender, :class_name => "User"
   belongs_to :notifiable, :polymorphic => true
@@ -22,6 +24,13 @@ class Notification < ActiveRecord::Base
   def send_email
     NotificationMailer.order_alert(self).deliver unless self.cleared?
   end
+
+  private
+
+    def pretty_date(time)
+      utc2current(time).to_formatted_s(:long)
+    end
+    
 end
 
 class OrderNotification < Notification
@@ -32,7 +41,7 @@ class OrderNotification < Notification
   end
 
   def description
-    "#{sender.name} ordered #{notifiable.service.name} for #{notifiable.appt_time}."
+    "#{sender.name} ordered #{notifiable.service.name} for #{pretty_date(notifiable.appt_time)}."
   end
 
 end
@@ -45,7 +54,7 @@ class CancelNotification < Notification
   end
 
   def description
-    "#{sender.name} cancelled the order for #{notifiable.service.name} for #{notifiable.appt_time}."
+    "#{sender.name} cancelled the order for #{notifiable.service.name} for #{pretty_date(notifiable.appt_time)}."
   end
 
 end

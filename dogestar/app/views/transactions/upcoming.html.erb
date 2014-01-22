@@ -1,7 +1,7 @@
 <% provide(:title, "Upcoming") %>
 <h1>Purchased by you</h1>
 <% @bought.each do |t| %>
-  <%=t.service.name %> scheduled for <%= utc2current(t.appt_time) %>.
+  <%=t.service.name %> scheduled for <%= utc2current(t.appt_time).to_formatted_s(:long) %>.
   <%= link_to "Cancel", cancel_order_path(t.id) %>
   <p>
 <% end %>
