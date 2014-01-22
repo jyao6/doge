@@ -7,6 +7,7 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.appt_time = appt_time_zoned
     @transaction.price = final_price(@transaction.service.price)
     @transaction.buyer_id = current_user.id
     @transaction.status = :ok
@@ -40,10 +41,15 @@ class TransactionsController < ApplicationController
   private
 
     def transaction_params
-      params.require(:transaction).permit(:appt_time, :service_id)
+      params.require(:transaction).permit(:service_id)
+    end
+
+    def appt_time_zoned
+      current_timezone.parse(params[:transaction][:appt_time])
     end
 
     def final_price(p)
       1.00 * p
     end
+
 end
