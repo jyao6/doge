@@ -3,7 +3,7 @@ class Notification < ActiveRecord::Base
   belongs_to :sender, :class_name => "User"
   belongs_to :notifiable, :polymorphic => true
 
-  after_save :send_email
+  before_save :send_email
 
   @noun = 'notification'
 
@@ -20,7 +20,7 @@ class Notification < ActiveRecord::Base
   end
 
   def send_email
-    NotificationMailer.order_alert(self).deliver
+    NotificationMailer.order_alert(self).deliver unless self.cleared?
   end
 end
 
