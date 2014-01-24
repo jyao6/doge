@@ -5,6 +5,12 @@
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
       <%= render 'fields', f: f %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirm Password" %>
+      <%= f.password_field :password_confirmation %>
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

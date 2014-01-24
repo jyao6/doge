@@ -5,6 +5,10 @@ gem 'rails', '4.0.1'
 
 group :development, :test do
   gem 'rspec-rails', '2.14.1'
+
+  # Like GDB for Rails. Write binding.pry anywhere you want to set a breakpoint.
+  gem 'pry'
+  gem 'pry-debugger'
 end
 
 group :test do

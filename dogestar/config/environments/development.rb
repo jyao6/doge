@@ -36,11 +36,11 @@ Dogestar::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_options = {from: 'no-replay@example.com'}
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
+    address:              'smtp.mailgun.org',
     port:                 587,
-    domain:               'example.com',
-    user_name:            '<username>',
-    password:             '<password>',
+    domain:               'sandbox48723.mailgun.org',
+    user_name:            'postmaster@sandbox48723.mailgun.org',
+    password:             '44f6nio-qk11',
     authentication:       'plain',
     enable_starttls_auto: true  }
 end

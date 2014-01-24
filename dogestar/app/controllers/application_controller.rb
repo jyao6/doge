@@ -3,11 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include SessionsHelper
+  include CommunityHelper
 
   private
     def not_for_signed_in
       if signed_in?
-        redirect_to controller: "services", action: "index"
+        redirect_to root_path
       end
     end
 
