@@ -1,0 +1,22 @@
+<div>
+	<% @rel_messages.each do |m| %>
+		<div>
+			<b><%= User.find(m.from_id).name %></b><br/>
+			<i>Sent at <%= m.created_at %></i>
+			<p><%= m.body %></p>
+		</div>
+	<% end %>
+	<%= form_for(@message) do |f| %>
+		<%= @message.to_id %>
+
+	    <div class="form-group" style="display:none">
+	    	<%= f.text_field :to_id, :value => params[:other_id], class: "form-control" %>
+	    </div>
+
+		<div class="form-group">
+	    	<%= f.text_area(:body, rows: 5, class: "form-control")%>
+	    </div>
+
+      <%= f.submit "Reply", class: "btn btn-large btn-primary" %>
+    <% end %>
+</div>

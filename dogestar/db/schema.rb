@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 20140118052929) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cover_photo_id"
     t.decimal  "avg_rating",     precision: 4, scale: 2
+    t.integer  "cover_photo_id"
   end
 
   add_index "services", ["category"], name: "index_services_on_category", using: :btree

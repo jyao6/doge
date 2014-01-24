@@ -9,6 +9,10 @@
 <% end %>
 
 <h1><%= @user.name %></h1>
+<% if @user.id != current_user.id %>
+	<%= link_to "Send Message", '/messages/' + @user.id.to_s, :method => :get %>
+	<br/>
+<% end %>
 <%= image_tag @user.avatar.url(:medium) %>
 <%= @user.bio %>
 
