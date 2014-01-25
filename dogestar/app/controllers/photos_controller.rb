@@ -16,7 +16,7 @@ class PhotosController < ApplicationController
   end
 
   def index
-    if Service.exists?(id: params[:service_id])
+    if Service.approved.exists?(id: params[:service_id])
       @service = Service.find(params[:service_id])
       @can_edit = (@service.user_id == current_user.id)
     else

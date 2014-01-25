@@ -19,7 +19,7 @@ class ServicesController < ApplicationController
 	end
 
 	def show
-		if Service.exists?(id: params[:id])
+		if Service.approved.exists?(id: params[:id])
 			@service = Service.find(params[:id])
 			@user = User.find(@service.user_id)
 		else
@@ -41,7 +41,7 @@ class ServicesController < ApplicationController
 	end
 
 	def index
-		@services = Service.order(created_at: :desc)
+		@services = Service.approved.order(created_at: :desc)
 	end
 
 	def show_reviews
