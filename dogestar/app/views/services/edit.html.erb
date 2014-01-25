@@ -1,27 +1,7 @@
 <div>
 	<%= form_for(@service) do |f| %>
-		<%= render 'shared/error_messages' %>
-		<div class="form-group">
-	    	<%= label_tag :name, "Service Name" %>
-		    <%= f.text_field :name, class: "form-control" %>
-	    </div>
-
-	    <div class="form-group">
-	    	<%= label_tag :price, "Price" %>
-	    	<%= f.text_field :price, class: "form-control" %>
-	    </div>
-
-	    <div class="form-group">
-	    	<%= label_tag(:category, "Categories") %>
-	    	<%= f.select(:category, options_for_select(Service.categories, @service.category)) %>
-	    </div>
-
-		<div class="form-group">
-	    	<%= label_tag(:description, "Brief Description") %>
-	    	<%= f.text_area(:description, rows: 5, class: "form-control")%>
-	    </div>
-
-      <%= f.submit "Update Service", class: "btn btn-large btn-primary" %>
+		<%= render 'fields', f: f %>
+    <%= f.submit "Update Service", class: "btn btn-large btn-primary" %>
       <div id="cancel" class="btn btn-large btn-primary" style="background-color:white;color:#3399FF"><%= link_to "Cancel", :back %></div>
 
     <% end %>

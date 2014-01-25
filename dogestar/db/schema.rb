@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121215317) do
+ActiveRecord::Schema.define(version: 20140123060903) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -76,8 +76,10 @@ ActiveRecord::Schema.define(version: 20140121215317) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "avg_rating",     precision: 4, scale: 2
     t.integer  "cover_photo_id"
+    t.decimal  "avg_rating",     precision: 4, scale: 2
+    t.string   "location"
+    t.boolean  "can_travel",                             default: false
   end
 
   add_index "services", ["category"], name: "index_services_on_category", using: :btree
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 20140121215317) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status"
+    t.string   "location"
   end
 
   add_index "transactions", ["buyer_id"], name: "index_transactions_on_buyer_id", using: :btree

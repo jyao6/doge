@@ -2,11 +2,13 @@ class TransactionsController < ApplicationController
   before_action :for_signed_in, only: [:new, :create, :history]
 
   def new
-  	@transaction = Transaction.new
+    @transaction = Transaction.new
+    @transaction.service = Service.find(params[:service_id])
   end
 
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.location = order_location(@transaction.service)
     @transaction.appt_time = appt_time_zoned
     @transaction.price = final_price(@transaction.service.price)
     @transaction.buyer_id = current_user.id
@@ -50,6 +52,14 @@ class TransactionsController < ApplicationController
 
     def final_price(p)
       1.00 * p
+    end
+
+    def order_location(service)
+      if !service.can_travel or params[:transaction][:location].empty?
+        service.location
+      else
+        params[:transaction][:location]
+      end
     end
 
 end

@@ -9,7 +9,12 @@
       <%= f.label :appt_time, "Appointment Time" %>
       <%= f.datetime_field :appt_time %>
 
-      <%= f.hidden_field :service_id, :value => params[:service_id]%>
+      <%= f.hidden_field :service_id, :value => @transaction.service.id %>
+
+      <% if @transaction.service.can_travel %>
+        <%= f.label :location, "Location (leave blank if no preference)" %>
+	    <%= f.text_field :location %>
+      <% end %>
 
       <%= f.submit "Order", class: "btn btn-large btn-primary" %>
     <% end %>
