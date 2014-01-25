@@ -13,13 +13,17 @@ module ApplicationHelper
   # maybe we should look into push notifications? or store these in session (probably quickest fix).
   def find_notifications
     if signed_in?
-      types = Notification.subclasses
+      types = Notification::Traditional.subclasses
       types.each do |t|
         msg = t.flash_msg(current_user.id)
         if msg
           @can_clear = true
-          flash[t.name.downcase] = msg
+          flash.now[t.name.downcase] = msg
         end
+      end
+      unread = MsgNotification.flash_msg(current_user.id)
+      if unread
+        flash.now[:unread_msgs] = unread
       end
     end
   end

@@ -8,9 +8,8 @@ class NotificationMailer < ActionMailer::Base
   end
 
   def msg_alert(msg)
-  	#TODO
-  	@user = msg.user
-  	mail(to: @user.email, subject: msg.short_description)
+    @msg = msg
+  	mail(to: @msg.to.email, subject: "#{@msg.from.name} sent you a message")
   end
 
 end

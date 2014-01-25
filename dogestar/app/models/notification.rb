@@ -17,10 +17,6 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  def description
-    "New notification from #{sender.name}."
-  end
-
   def send_email
     NotificationMailer.order_alert(self).deliver unless self.cleared?
   end
@@ -33,7 +29,13 @@ class Notification < ActiveRecord::Base
     
 end
 
-class OrderNotification < Notification
+class Traditional < Notification
+  def description
+    "New notification from #{sender.name}."
+  end
+end
+
+class OrderNotification < Traditional
   @noun = 'new order'
 
   def short_description
@@ -46,7 +48,7 @@ class OrderNotification < Notification
 
 end
 
-class CancelNotification < Notification
+class CancelNotification < Traditional
   @noun = 'cancellation'
 
   def short_description
@@ -59,16 +61,10 @@ class CancelNotification < Notification
 
 end
 
-class MsgNotification
-  #TODO
-  def short_description
-    "#{sender.name} sent you a message"
-  end
-
-  def description
-  end
+class MsgNotification < Notification
+  @noun = 'unread message'
 
   def send_email
-    NotificationMailer.msg_alert(self).deliver
+    NotificationMailer.msg_alert(self.notifiable).deliver
   end
 end
