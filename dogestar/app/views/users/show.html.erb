@@ -12,7 +12,7 @@
 
 <h1><%= @user.name %></h1>
 <% if @user.id != current_user.id %>
-	<%= link_to "Send Message", '/messages/' + @user.id.to_s, :method => :get %>
+	<%= link_to "Send Message", messages_path(@user.id) %>
 	<br/>
 <% end %>
 <%= image_tag @user.avatar.url(:medium) %>

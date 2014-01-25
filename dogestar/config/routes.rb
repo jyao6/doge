@@ -10,7 +10,6 @@ Dogestar::Application.routes.draw do
   # root 'welcome#index'
 
   resources :users
-  resources :messages, only: [:new, :create]
   resources :services do
     resources :transactions, only: [:new, :create] do
       resources :reviews, only: [:new, :create, :destroy]
@@ -34,7 +33,8 @@ Dogestar::Application.routes.draw do
   match '/clear-notifications', to: 'notifications#clear',     via: ['get', 'post'], as: 'clear_notifications'
   match '/notifications', to: 'notifications#index',     via: ['get', 'post'], as: 'notifications'
 
-  match '/messages/:other_id', to: 'messages#new', via: ['get']
+  match '/messages/:other_id', to: 'messages#new', via: ['get'], as: 'messages'
+  match '/messages/:other_id', to: 'messages#create', via: ['post']
 
   get 'services/:id/reviews' => 'services#show_reviews'
 

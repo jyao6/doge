@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 		@message = Message.create(message_params)
 		if @message.save
 			flash[:success] = "Message sent."
-			redirect_to '/messages/' + @message.to_id.to_s
+			redirect_to messages_path(@message.to_id)
 		else
 			render "new"
 		end
