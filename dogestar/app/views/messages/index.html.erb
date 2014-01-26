@@ -1,0 +1,11 @@
+<%= link_to 'View Outbox', outbox_path %>
+<p>
+<% @threads.each do |t| %>
+  <%= link_to t.from.name, messages_path(t.from_id) %>
+  <% if @unread[t.from_id] %>
+    - <%= @unread[t.from_id] %> unread
+  <% end %>
+  <p>
+  <%= truncate(t.body, :length => 50) %>
+  <p>
+<% end %>

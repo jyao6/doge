@@ -3,6 +3,7 @@
 		<%= link_to 'Sign Out', '/signout' %> 
 		| <%= link_to 'Home', root_url %>
 		| <%= link_to 'Your Profile', current_user %>
+		| <%= link_to 'Inbox', inbox_path %>
 <% else %>
 		<%= link_to 'Sign In', '/signin' %>
 <% end %>

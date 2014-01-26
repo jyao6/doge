@@ -35,6 +35,8 @@ Dogestar::Application.routes.draw do
 
   match '/messages/:other_id', to: 'messages#new', via: ['get'], as: 'messages'
   match '/messages/:other_id', to: 'messages#create', via: ['post']
+  match '/inbox', to: 'messages#index', via: ['get'], as: 'inbox'
+  match '/outbox', to: 'messages#index_sent', via: ['get'], as: 'outbox'
 
   get 'services/:id/reviews' => 'services#show_reviews'
 

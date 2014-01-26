@@ -1,0 +1,6 @@
+<% @threads.each do |t| %>
+  <%= link_to t.to.name, messages_path(t.to_id) %>
+  <p>
+  <%= truncate(t.body, :length => 20) %>
+  <p>
+<% end %>

@@ -13,7 +13,7 @@ module ApplicationHelper
   # maybe we should look into push notifications? or store these in session (probably quickest fix).
   def find_notifications
     if signed_in?
-      types = Notification::Traditional.subclasses
+      types = Notification::Clearable.subclasses
       types.each do |t|
         msg = t.flash_msg(current_user.id)
         if msg

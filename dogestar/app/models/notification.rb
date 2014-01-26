@@ -17,6 +17,10 @@ class Notification < ActiveRecord::Base
     end
   end
 
+  def description
+    "New notification from #{sender.name}."
+  end
+
   def send_email
     NotificationMailer.order_alert(self).deliver unless self.cleared?
   end
@@ -26,39 +30,28 @@ class Notification < ActiveRecord::Base
     def pretty_date(time)
       utc2current(time).to_formatted_s(:long)
     end
-    
 end
 
-class Traditional < Notification
-  def description
-    "New notification from #{sender.name}."
-  end
-end
-
-class OrderNotification < Traditional
-  @noun = 'new order'
-
+class Clearable < Notification
   def short_description
-    "#{sender.name} made a new order"
+    "#{sender.name} made a #{self.class.instance_eval{@noun}}"
   end
+end
+
+class OrderNotification < Clearable
+  @noun = 'new order'
 
   def description
     "#{sender.name} ordered #{notifiable.service.name} for #{pretty_date(notifiable.appt_time)}."
   end
-
 end
 
-class CancelNotification < Traditional
+class CancelNotification < Clearable
   @noun = 'cancellation'
-
-  def short_description
-    "#{sender.name} cancelled an order"
-  end
 
   def description
     "#{sender.name} cancelled the order for #{notifiable.service.name} for #{pretty_date(notifiable.appt_time)}."
   end
-
 end
 
 class MsgNotification < Notification
