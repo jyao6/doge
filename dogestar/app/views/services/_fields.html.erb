@@ -10,6 +10,11 @@
 </div>
 
 <div class="form-group">
+    <%= f.label(:lesson, "Lesson") %>
+    <%= f.check_box(:lesson) %>
+</div>
+
+<div class="form-group">
 	<%= f.label(:category, "Categories") %>
 	<%= f.select(:category, options_for_select(Service.categories, @service.category)) %>
 </div>

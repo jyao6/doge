@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123060903) do
+ActiveRecord::Schema.define(version: 20140126044439) do
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -80,10 +80,12 @@ ActiveRecord::Schema.define(version: 20140123060903) do
     t.decimal  "avg_rating",     precision: 4, scale: 2
     t.string   "location"
     t.boolean  "can_travel",                             default: false
+    t.boolean  "lesson",                                 default: false
   end
 
   add_index "services", ["category"], name: "index_services_on_category", using: :btree
   add_index "services", ["cover_photo_id"], name: "services_cover_photo_id_fk", using: :btree
+  add_index "services", ["lesson"], name: "index_services_on_lesson", using: :btree
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
 
   create_table "transactions", force: true do |t|

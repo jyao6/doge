@@ -32,7 +32,7 @@
 	<p><%= @service.can_travel.yesno %></p>
 
 	<h4>Category</h4>
-	<p><%= @service.category %></p>
+	<p><%= @service.category %><%= " (Lesson)" if @service.lesson %></p>
 
 	<h4>Description</h4>
 	<p><%= @service.description %></p>

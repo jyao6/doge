@@ -51,7 +51,7 @@ class ServicesController < ApplicationController
 	private
 		def service_params
 			# TODO: remove legitimized in the future
-			param_dict = params.require(:service).permit(:name, :price, :category, :description, :can_travel, :location)
+			param_dict = params.require(:service).permit(:name, :price, :category, :description, :can_travel, :location, :lesson)
 			param_dict[:legitimized] = true
 			return param_dict
 		end
