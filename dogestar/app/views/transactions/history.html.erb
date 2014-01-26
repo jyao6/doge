@@ -3,13 +3,13 @@
 
 <% @orders.each do |o| %>
   Ordered <%= link_to o.service.name, service_path(o.service_id) %> on <%= o.updated_at %> for $<%= "%.2f" % o.price %>.
-  <% if o.status == :cancelled %>
+  <% if [:buyer_cancel, :seller_cancel].include? o.status %>
     Cancelled
   <% elsif o.review.nil? and o.status == :ok %>
   	<% if o.appt_time < Time.now %>
 	    <%= link_to "Rate/review", new_service_transaction_review_path(o.service_id, o.id) %>.
 	<% end %>
-  <% else %>
+  <% elsif !o.review.nil?  %>
     Rated <%= o.review.rating %> out of 5.
   <% end %>
   <p>

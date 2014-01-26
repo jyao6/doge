@@ -10,6 +10,7 @@ class Transaction < ActiveRecord::Base
 
   scope :of_user, ->(uid) { where(buyer_id: uid) }
   scope :future, -> { where("appt_time > ?", Time.now) }
+  scope :past, -> { where("appt_time < ?", Time.now) }
   scope :active, -> { where status: :ok }
 
   STATUSES = { ok: 0, buyer_cancel: 1, seller_cancel: 2 }
