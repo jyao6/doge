@@ -12,10 +12,7 @@ class Service < ActiveRecord::Base
   scope :approved, :conditions => {:legitimized => 1}
 
 
-  CATS = ["Music", "Culinary", "Academic", "Beauty", "Photography", "Sewing"]
-  CAT_DICT = Hash[CATS.zip (0...CATS.length)]
-  
-  # CATS = { "Category 1"=>1, "Category 2"=>2, "Category 3"=>3}
+  CATS_DICT = { "Music"=>0, "Culinary"=>1, "Academic"=>2, "Beauty"=> 3, "Photography"=>4, "Fashion"=>5}
 
   def self.categories
     CAT_DICT.keys
