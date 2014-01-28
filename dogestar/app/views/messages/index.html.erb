@@ -1,5 +1,5 @@
 <%= link_to 'View Outbox', outbox_path %>
-<p>
+<p><%= paginate @threads %></p>
 <% @threads.each do |t| %>
   <%= link_to t.from.name, messages_path(t.from_id) %>
   <% if @unread[t.from_id] %>
@@ -9,3 +9,4 @@
   <%= truncate(t.body, :length => 50) %>
   <p>
 <% end %>
+<p><%= paginate @threads %></p>

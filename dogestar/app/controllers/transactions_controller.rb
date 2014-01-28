@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
   end
 
   def history
-  	@orders = Transaction.of_user(current_user.id)
+  	@orders = Transaction.of_user(current_user.id).order(created_at: :desc).page(params[:page])
   end
 
   def cancel

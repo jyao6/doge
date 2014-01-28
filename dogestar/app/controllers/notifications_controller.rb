@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :for_signed_in
 
   def index
-    @notifications = Notification::Clearable.where(user_id: current_user.id).order(created_at: :desc)
+    @notifications = Notification::Clearable.where(user_id: current_user.id).order(created_at: :desc).page(params[:page])
   end
 
   def clear

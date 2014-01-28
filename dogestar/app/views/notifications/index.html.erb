@@ -1,4 +1,6 @@
+<p><%= paginate @notifications %></p>
 <% @notifications.each do |n| %>
   <%= n.description %><%= utc2current(n.created_at).to_formatted_s(:short) %>
   <p>
 <% end %>
+<p><%= paginate @notifications %></p>

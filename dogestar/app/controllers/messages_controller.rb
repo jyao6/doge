@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
+    THREADS_PER_PAGE = 25
 	def new
-		@rel_messages = Message.where('(to_id=? AND from_id=?) OR (to_id=? AND from_id=?)', params[:other_id], current_user.id, current_user.id, params[:other_id]).order(created_at: :asc)		
+		@rel_messages = Message.where('(to_id=? AND from_id=?) OR (to_id=? AND from_id=?)', params[:other_id], current_user.id, current_user.id, params[:other_id]).order(created_at: :asc)
 		@message = Message.new
 		MsgNotification.destroy_all(user_id: current_user.id, sender_id: params[:other_id])
 	end
@@ -33,11 +34,13 @@ class MessagesController < ApplicationController
 
 		def index_helper(w1, w2)
 			most_recent = Message.where(w1 => current_user.id).group(w2).maximum(:created_at)
+            num_threads = most_recent.length
 			most_recent = most_recent.sort_by {|k,v| v}.reverse
-			@threads = []
-			most_recent.each do |uid, created_at|
-				@threads << Message.where(w2 => uid, created_at: created_at).first
+			threads = []
+            offset = params[:page].to_i - 1 unless params[:page].nil?
+			most_recent.drop(THREADS_PER_PAGE * (offset or 0)).first(THREADS_PER_PAGE).each do |uid, created_at|
+				threads << Message.where(w2 => uid, created_at: created_at).first
 			end
-			@threads
+            Kaminari.paginate_array(threads, total_count: num_threads).page(params[:page]).per(THREADS_PER_PAGE)
 		end
 end

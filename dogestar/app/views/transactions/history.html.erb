@@ -1,6 +1,6 @@
 <% provide(:title, "Order history") %>
 <h1>Your Order History</h1>
-
+<%= paginate @orders %>
 <% @orders.each do |o| %>
   Ordered <%= link_to o.service.name, service_path(o.service_id) %> on <%= o.updated_at %> for $<%= "%.2f" % o.price %>.
   <% if [:buyer_cancel, :seller_cancel].include? o.status %>
@@ -14,3 +14,4 @@
   <% end %>
   <p>
 <% end %>
+<%= paginate @orders %>

@@ -13,6 +13,8 @@ class Transaction < ActiveRecord::Base
   scope :past, -> { where("appt_time < ?", Time.now) }
   scope :active, -> { where status: :ok }
 
+  paginates_per 10
+
   STATUSES = { ok: 0, buyer_cancel: 1, seller_cancel: 2 }
 
   def status

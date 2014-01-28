@@ -4,6 +4,8 @@
   <p><%= link_to "Choose primary photo", service_choose_cover_path(@service.id) %></p>
 <% end %>
 
-<% @service.photos.each do |p| %>
+<p><%= paginate @photos %></p>
+<% @photos.each do |p| %>
   <%= image_tag p.img(:medium)  %>
 <% end %>
+<p><%= paginate @photos %></p>
