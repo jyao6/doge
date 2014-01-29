@@ -1,5 +1,7 @@
 <% provide(:title, "Upload photos") %>
 
+<p><%= link_to "Back to album", service_photos_path(params[:service_id]) %></p>
+
 <%= form_for @photo, :url => service_photos_path, html: { multipart: true } do |f| %>
   <%= render 'shared/error_messages' %>
   <%= f.label :img, "Choose photos" %>
@@ -11,3 +13,31 @@
 
 <% # jquery upload template # %>
 <script id="template-upload" type="text/x-tmpl"><div class="upload">{%=o.name%}<div class="progress"><div class="progress-bar" role="progressbar" style="width: 45%; height: 100%"></div></div></div></script>
+
+<script>
+jQuery(function() {
+  $('#photo_img').attr('name', 'photo[img]');
+  return $('#new_photo').fileupload({
+    dataType: 'script',
+    add: function(e, data) {
+      var file, types;
+      types = /(\.|\/)(gif|jpe?g|png)$/i;
+      file = data.files[0];
+      if (types.test(file.type) || types.test(file.name)) {
+        data.context = $(tmpl("template-upload", file));
+        $('#new_photo').append(data.context);
+        return data.submit();
+      } else {
+        return alert("" + file.name + " is not a gif, jpg or png image file");
+      }
+    },
+    progress: function(e, data) {
+      var progress;
+      if (data.context) {
+        progress = parseInt(data.loaded / data.total * 100, 10);
+        return data.context.find('.progress-bar').css('width', progress + '%');
+      }
+    }
+  });
+  });
+  </script>
