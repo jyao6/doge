@@ -16,4 +16,6 @@
 //= require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require jquery.ui.datepicker
+//= require jquery.ui.slider
 //= require_tree .
