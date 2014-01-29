@@ -41,7 +41,7 @@ class ServicesController < ApplicationController
 	end
 
 	def index
-		@services = Service.approved.order(created_at: :desc)
+		@services = Service.approved.order(created_at: :desc).page(params[:page])
 	end
 
 	def show_reviews

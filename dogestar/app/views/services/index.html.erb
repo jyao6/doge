@@ -1,4 +1,5 @@
 <div>
+  <%= paginate @services %>
 	<% @services.each do |s| %>
 		<% s_user = User.find(s.user_id) %>
 		<h3><%= link_to s.name, s %></h3>
@@ -8,7 +9,7 @@
 		<% else %>
 			<h4>Unrated</h4>
 		<% end %>
-		<p>$<%= s.price %> -- 
+		<p>$<%= s.price %> --
 			<% if s_user == current_user %>
 				<%= link_to "Edit", edit_service_path(s.id) %>
 			<% else %>
@@ -17,4 +18,5 @@
 		</p>
 		<br />
 	<% end %>
+  <%= paginate @services %>
 </div>
