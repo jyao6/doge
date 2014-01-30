@@ -11,6 +11,7 @@ class Service < ActiveRecord::Base
 
   scope :approved, :conditions => {:legitimized => 1}
 
+  paginates_per 20
 
   CAT_DICT = { "Music"=>0, "Culinary"=>1, "Academic"=>2, "Beauty"=> 3, "Photography"=>4, "Fashion"=>5}
 

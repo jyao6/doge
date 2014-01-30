@@ -3,12 +3,12 @@
 
 	<br/>
 
-	<%= image_tag @service.album_cover.url(:medium) %>
+	<%= link_to (image_tag @service.album_cover.url(:medium)), service_photos_path(@service.id) %>
 
 	<h4>Service Name</h4>
 	<p><%= @service.name %></p>
 
-	<h5> 
+	<h5>
 		<% if @user == current_user %>
 			<%= link_to "Edit", edit_service_path(@service.id) %>
 		<% else %>
@@ -16,10 +16,10 @@
 		<% end %>
 	</h5>
 
-	<br/> 
+	<br/>
 
 	<h4>Average Rating</h4>
-	<% if @service.avg_rating? %>		
+	<% if @service.avg_rating? %>
 		<p><%= @service.avg_rating %> Stars (<%= link_to "See Reviews", controller: "services", action:"show_reviews" %>)</p>
 	<% else %>
 		<p>Unrated</p>

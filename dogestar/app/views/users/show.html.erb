@@ -15,7 +15,7 @@
 	<%= link_to "Send Message", messages_path(@user.id) %>
 	<br/>
 <% end %>
-<%= image_tag @user.avatar.url(:medium) %>
+<%= image_tag @user.avatar.url(:square) %>
 <%= @user.bio %>
 
 <h1><%= @user.name %>'s Services</h1>

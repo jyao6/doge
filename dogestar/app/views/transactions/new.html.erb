@@ -1,4 +1,5 @@
 <% provide(:title, 'Order') %>
+<%= javascript_include_tag "transactions_new" %>
 <h1>Order</h1>
 
 <div class="row">
@@ -6,8 +7,8 @@
     <%= form_for(@transaction, url: service_transactions_path) do |f| %>
       <%= render 'shared/error_messages' %>
 
-      <%= f.label :appt_time, "Appointment Time" %>
-      <%= f.datetime_field :appt_time %>
+      <%= f.label :appt_time, "Appointment Date" %>
+      <%= f.datetime_field :appt_time, class: "datepicker" %>
 
       <%= f.hidden_field :service_id, :value => @transaction.service.id %>
 

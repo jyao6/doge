@@ -28,7 +28,11 @@ class TransactionsController < ApplicationController
   def cancel
     @transaction = Transaction.find(params[:id])
     if current_user?(@transaction.buyer) or current_user?(@transaction.seller)
-      @transaction.status = :cancelled
+      if current_user?(@transaction.buyer)
+        @transaction.status = :buyer_cancel
+      else
+        @transaction.status = :seller_cancel
+      end
       @transaction.save
       flash[:success] = "Order successfully cancelled."
     end

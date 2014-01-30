@@ -1,5 +1,6 @@
 <div>
-	<% @rel_messages.each do |m| %>
+    <%= paginate @rel_messages %>
+	<% @rel_messages.reverse_each do |m| %>
 		<div>
 			<b><%= User.find(m.from_id).name %></b><br/>
 			<i>Sent at <%= m.created_at %></i>
@@ -19,4 +20,5 @@
 
       <%= f.submit "Reply", class: "btn btn-large btn-primary" %>
     <% end %>
+    <%= paginate @rel_messages %>
 </div>

@@ -1,4 +1,7 @@
 <% provide(:title, "Upload photos") %>
+<%= javascript_include_tag "photos_new" %>
+
+<p><%= link_to "Back to album", service_photos_path(params[:service_id]) %></p>
 
 <%= form_for @photo, :url => service_photos_path, html: { multipart: true } do |f| %>
   <%= render 'shared/error_messages' %>
@@ -11,3 +14,4 @@
 
 <% # jquery upload template # %>
 <script id="template-upload" type="text/x-tmpl"><div class="upload">{%=o.name%}<div class="progress"><div class="progress-bar" role="progressbar" style="width: 45%; height: 100%"></div></div></div></script>
+

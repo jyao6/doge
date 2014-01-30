@@ -31,11 +31,11 @@ class Transaction < ActiveRecord::Base
 
   def send_notifications
     if self.status == :ok
-      record = OrderNotification.new(user_id: self.service.user_id, sender_id: self.buyer_id)
+      record = Notification::OrderNotification.new(user_id: self.service.user_id, sender_id: self.buyer_id)
     elsif self.status == :buyer_cancel
-      record = CancelNotification.new(user_id: self.service.user_id, sender_id: self.buyer_id)
+      record = Notification::CancelNotification.new(user_id: self.service.user_id, sender_id: self.buyer_id)
     elsif self.status == :seller_cancel
-      record = CancelNotification.new(user_id: self.buyer_id, sender_id: self.service.user_id)
+      record = Notification::CancelNotification.new(user_id: self.buyer_id, sender_id: self.service.user_id)
     end
     record.notifiable = self
     record.save

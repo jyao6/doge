@@ -1,9 +1,9 @@
 class MessagesController < ApplicationController
     THREADS_PER_PAGE = 25
 	def new
-		@rel_messages = Message.where('(to_id=? AND from_id=?) OR (to_id=? AND from_id=?)', params[:other_id], current_user.id, current_user.id, params[:other_id]).order(created_at: :asc)
+		@rel_messages = Message.where('(to_id=? AND from_id=?) OR (to_id=? AND from_id=?)', params[:other_id], current_user.id, current_user.id, params[:other_id]).order(created_at: :desc).page(params[:page])
 		@message = Message.new
-		MsgNotification.destroy_all(user_id: current_user.id, sender_id: params[:other_id])
+		Notification::MsgNotification.destroy_all(user_id: current_user.id, sender_id: params[:other_id])
 	end
 
 	def create

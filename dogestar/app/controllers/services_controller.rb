@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
 	before_action :for_signed_in, only: [:new, :create]
-	before_action only: [:edit, :update, :destroy] do 
+	before_action only: [:edit, :update, :destroy] do
 	  for_service_owner(params[:id])
 	end
 
@@ -44,7 +44,7 @@ class ServicesController < ApplicationController
 		if !Rails.cache.exist?("services") or params[:type].nil?
 			Rails.cache.write("services", Service.approved)
 		end
-		@services = sorter
+		@services = sorter.page(params[:page])
 	end
 
 	def filter
