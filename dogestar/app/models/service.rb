@@ -12,10 +12,14 @@ class Service < ActiveRecord::Base
   scope :approved, :conditions => {:legitimized => 1}
 
 
-  CATS_DICT = { "Music"=>0, "Culinary"=>1, "Academic"=>2, "Beauty"=> 3, "Photography"=>4, "Fashion"=>5}
+  CAT_DICT = { "Music"=>0, "Culinary"=>1, "Academic"=>2, "Beauty"=> 3, "Photography"=>4, "Fashion"=>5}
 
   def self.categories
     CAT_DICT.keys
+  end
+
+  def self.category_num(str)
+    CAT_DICT[str]
   end
 
   def album_cover

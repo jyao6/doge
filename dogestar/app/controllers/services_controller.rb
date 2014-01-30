@@ -41,7 +41,51 @@ class ServicesController < ApplicationController
 	end
 
 	def index
-		@services = Service.approved.order(created_at: :desc)
+		if !Rails.cache.exist?("services") or params[:type].nil?
+			Rails.cache.write("services", Service.approved)
+		end
+		@services = sorter
+	end
+
+	def filter
+		cat_query = ""
+		Service.categories.each do |c|
+			if !params[c].nil?
+				cat_query += " OR category = " + Service.category_num(c).to_s + ""
+			end
+		end
+		if !params[:lesson].nil?
+			lesson_query = "lesson = true"
+		end
+		if !params[:can_travel].nil?
+			travel_query = "can_travel = true"
+		end
+		if params[:min_price] != ""
+			price_query = "price > " + params[:min_price]
+		else
+			price_query = ""
+		end
+		if params[:max_price] != ""
+			if price_query != ""
+				price_query += " AND "
+			end
+			price_query += "price < " + params[:max_price] 
+		end
+		unsorted_services = Service.where(cat_query[4..-1]).where(lesson_query).where(travel_query).where(price_query)
+
+		Rails.cache.write("services", unsorted_services)
+		@services = sorter
+		render "index"
+	end
+
+	def search
+		# render :json => params[:q].split(" ").to_json
+		# params[:q].split(" ").each do |word|
+		# 	Service.where()
+		# end
+		@services = Service.where("name LIKE ?", "%" + params[:q].to_s + "%") + Service.where("description LIKE ?", "%" + params[:q].to_s + "%")
+		Rails.cache.write("services", @services)
+		render "index"
 	end
 
 	def show_reviews
@@ -56,4 +100,24 @@ class ServicesController < ApplicationController
 			return param_dict
 		end
 
+		def sorter
+			list = Rails.cache.read("services")
+			if !params[:orient_desc].nil? and params[:orient_desc].to_i == 0
+				orientation = :asc
+				@desc = 1
+			else
+				orientation = :desc
+				@desc = 0
+			end
+
+			if params[:type] == "rating"
+				services = list.order(avg_rating: orientation)
+			elsif params[:type] == "price"
+				services = list.order(price: orientation)
+			else
+				services = list.order(created_at: orientation)
+			end
+
+			return services
+		end
 end

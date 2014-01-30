@@ -1,4 +1,45 @@
+<br/>
 <div>
+	<%= form_tag(controller: "services", action:"filter", method: "post") do %>
+	<%= label_tag(:cats, "Categories:") %>
+	<% Service.categories.each do |c| %>
+		<%= label_tag(c, c) %>
+		<%= check_box_tag(c, 'yes', (!params[c].nil?)) %>
+	<% end %>
+	<br/>
+	<%= label_tag(:min_price, "Min Price:") %>
+	<%= text_field_tag(:min_price, params[:min_price]) %>
+	<%= label_tag(:max_price, "Max Price:") %>
+	<%= text_field_tag(:max_price, params[:max_price]) %>
+    <%= label_tag(:lesson, "Lesson") %>
+    <%= check_box_tag(:lesson, 'yes', (!params[:lesson].nil?)) %>
+	<%= label_tag(:can_travel, "Willing to travel") %>
+    <%= check_box_tag(:can_travel, 'yes', (!params[:can_travel].nil?)) %>
+	<%= submit_tag("Filter Results", class: "btn btn-large btn-primary") %>
+	<% end %>
+</div>
+
+<br/>
+<div>
+	<%= form_tag(controller: "services", action:"search") do %>
+	<%= label_tag(:q, "Search for:") %>
+	<%= text_field_tag(:q, params[:q]) %>
+	<%= submit_tag("Search", class: "btn btn-large btn-primary") %>
+	<% end %>
+</div>
+<br/>
+<div>
+	Sort By: |
+	<% ["date", "price", "rating"].each do |t| %>
+		<% if (params[:type] == t) or (params[:type].nil? and t == "date") %>
+			<% desc = @desc %>
+			<% if @desc == 1 %>ASC<% else %>DESC<% end%>
+		<% else %>
+			<% desc = 1 %>
+		<% end %>
+		<%= link_to t.capitalize, {:controller => "services", :action => "index", :type => t, :orient_desc => desc} %> |
+	<% end %>
+
 	<% @services.each do |s| %>
 		<% s_user = User.find(s.user_id) %>
 		<h3><%= link_to s.name, s %></h3>
