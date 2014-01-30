@@ -35,14 +35,14 @@ class UsersController < ApplicationController
 
   def change_password
     @user = current_user
-    if !password_params.empty? and @user.update_attributes(password_params)
+    if !password_params.empty? and !password_params[:password].empty? and @user.update_attributes(password_params)
       flash[:success] = "Password changed."
       redirect_to @user
     end
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(profile_params)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -94,8 +94,11 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation, :bio, :avatar)
+      params.require(:user).permit(:name, :email, :bio, :avatar, :password, :password_confirmation)
+    end
+
+    def profile_params
+      params.require(:user).permit(:name, :email, :bio, :avatar)
     end
 
     def password_params

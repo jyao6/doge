@@ -7,13 +7,13 @@ class User < ActiveRecord::Base
   has_one :reset_password
 
   #TODO: medium and thumb size options should be altered. these were defaults. also need actual default photo!
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/avatars/:style/missing.png"
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :square => "300x300#" }, :default_url => "/avatars/:style/missing.png"
 
   validates :name, presence: true, length: { maximum: 30 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: {case_sensitive: false}
   has_secure_password
-  validates :password, length: { minimum: 6 }
+  validates :password, length: { :within => 6..40 }, if: :password
   validates_attachment :avatar, :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/gif", "image/png"] },
   :size => { :in => 0..3.megabytes }
 
