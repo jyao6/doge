@@ -74,7 +74,7 @@ class ServicesController < ApplicationController
 		unsorted_services = Service.where(cat_query[4..-1]).where(lesson_query).where(travel_query).where(price_query)
 
 		Rails.cache.write("services", unsorted_services)
-		@services = sorter
+		@services = sorter.page(params[:page])
 		render "index"
 	end
 
@@ -83,8 +83,11 @@ class ServicesController < ApplicationController
 		# params[:q].split(" ").each do |word|
 		# 	Service.where()
 		# end
-		@services = Service.where("name LIKE ?", "%" + params[:q].to_s + "%") + Service.where("description LIKE ?", "%" + params[:q].to_s + "%")
-		Rails.cache.write("services", @services)
+		keyword = "%" + params[:q].to_s + "%"
+		search_results = Service.where("name LIKE ?", keyword) + Service.where("description LIKE ?", keyword)
+		sortable_results = Service.where("name LIKE ? OR description LIKE ?", keyword, keyword)
+		Rails.cache.write("services", sortable_results)
+		@services = Kaminari.paginate_array(search_results).page(params[:page])
 		render "index"
 	end
 
