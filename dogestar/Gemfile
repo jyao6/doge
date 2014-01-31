@@ -61,6 +61,10 @@ gem 'jquery-fileupload-rails'
 # For pagination
 gem 'kaminari', '0.15.1'
 
+# For cron jobs
+gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
+gem 'resque-scheduler'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

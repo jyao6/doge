@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(version: 20140126044439) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cover_photo_id"
     t.decimal  "avg_rating",     precision: 4, scale: 2
+    t.integer  "cover_photo_id"
     t.string   "location"
     t.boolean  "can_travel",                             default: false
     t.boolean  "lesson",                                 default: false

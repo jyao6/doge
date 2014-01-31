@@ -19,6 +19,10 @@ class Service < ActiveRecord::Base
     CAT_DICT.keys
   end
 
+  def self.category_num(str)
+    CAT_DICT[str]
+  end
+
   def album_cover
     if cover_photo.nil?
       photos.first_or_initialize.img
