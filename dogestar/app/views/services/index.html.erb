@@ -2,7 +2,8 @@
   <%= paginate @services %>
 	<% @services.each do |s| %>
 		<% s_user = User.find(s.user_id) %>
-		<h3><%= link_to s.name, s %></h3>
+        <h3><%= link_to s.name, s %></h3>
+        <div><%= image_tag s.album_cover.url(:thumb) %></div>
 		<h4>By <%= link_to s_user.name, s_user %></h4>
 		<% if s.avg_rating? %>
 			<h4>Rating: <%= s.avg_rating %> Stars</h4>
