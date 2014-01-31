@@ -13,7 +13,7 @@
 	<%= text_field_tag(:max_price, params[:max_price]) %>
     <%= label_tag(:lesson, "Lesson") %>
     <%= check_box_tag(:lesson, 'yes', (!params[:lesson].nil?)) %>
-	<%= label_tag(:can_travel, "Willing to travel") %>
+	<%= label_tag(:can_travel, "Service provider willing to travel") %>
     <%= check_box_tag(:can_travel, 'yes', (!params[:can_travel].nil?)) %>
 	<%= submit_tag("Filter Results", class: "btn btn-large btn-primary") %>
 	<% end %>

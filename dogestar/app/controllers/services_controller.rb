@@ -41,8 +41,8 @@ class ServicesController < ApplicationController
 	end
 
 	def index
-		if !Rails.cache.exist?("services") or params[:type].nil?
-			Rails.cache.write("services", Service.approved)
+		if session[:results].nil? or params[:type].nil?
+			session[:results] = Service.approved
 		end
 		@services = sorter.page(params[:page])
 	end
@@ -60,20 +60,20 @@ class ServicesController < ApplicationController
 		if !params[:can_travel].nil?
 			travel_query = "can_travel = true"
 		end
-		if params[:min_price] != ""
+		if !params[:min_price].blank?
 			price_query = "price > " + params[:min_price]
 		else
 			price_query = ""
 		end
-		if params[:max_price] != ""
-			if price_query != ""
+		if !params[:max_price].blank?
+			if !price_query.blank?
 				price_query += " AND "
 			end
 			price_query += "price < " + params[:max_price] 
 		end
 		unsorted_services = Service.where(cat_query[4..-1]).where(lesson_query).where(travel_query).where(price_query)
 
-		Rails.cache.write("services", unsorted_services)
+		session[:results] = unsorted_services
 		@services = sorter.page(params[:page])
 		render "index"
 	end
@@ -86,7 +86,7 @@ class ServicesController < ApplicationController
 		keyword = "%" + params[:q].to_s + "%"
 		search_results = Service.where("name LIKE ?", keyword) + Service.where("description LIKE ?", keyword)
 		sortable_results = Service.where("name LIKE ? OR description LIKE ?", keyword, keyword)
-		Rails.cache.write("services", sortable_results)
+		session[:results] = sortable_results
 		@services = Kaminari.paginate_array(search_results).page(params[:page])
 		render "index"
 	end
@@ -104,7 +104,7 @@ class ServicesController < ApplicationController
 		end
 
 		def sorter
-			list = Rails.cache.read("services")
+			list = session[:results]
 			if !params[:orient_desc].nil? and params[:orient_desc].to_i == 0
 				orientation = :asc
 				@desc = 1
