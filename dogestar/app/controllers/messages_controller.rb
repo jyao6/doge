@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+	before_action :for_signed_in
+
     THREADS_PER_PAGE = 25
 	def new
 		@rel_messages = Message.where('(to_id=? AND from_id=?) OR (to_id=? AND from_id=?)', params[:other_id], current_user.id, current_user.id, params[:other_id]).order(created_at: :desc).page(params[:page])
