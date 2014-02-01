@@ -1,5 +1,5 @@
 <% provide(:title, "Photos") %>
-<% if @can_edit %>
+<% if current_user?(@service.user) %>
   <p><%= link_to "Add photos", new_service_photo_path(@service.id) %></p>
   <p><%= link_to "Choose primary photo", service_choose_cover_path(@service.id) %></p>
 <% end %>

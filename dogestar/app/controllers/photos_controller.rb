@@ -19,7 +19,6 @@ class PhotosController < ApplicationController
     if Service.approved.exists?(id: params[:service_id])
       @service = Service.find(params[:service_id])
       @photos = @service.photos.page(params[:page])
-      @can_edit = (@service.user_id == current_user.id)
     else
       flash[:notice] =  "This service does not exist. :("
 	  redirect_to root_path
