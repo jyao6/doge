@@ -23,7 +23,7 @@ module ApplicationHelper
       end
       unread = MsgNotification.flash_msg(current_user.id)
       if unread
-        flash.now[:unread_msgs] = unread
+        flash.now[:unread_msgs] = (unread + " #{ActionController::Base.helpers.link_to "Go to inbox", "/inbox"}").html_safe
       end
     end
   end
