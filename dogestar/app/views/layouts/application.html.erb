@@ -9,6 +9,8 @@
 <body>
 <%= render 'layouts/header' %>
 <div class="container">
+    <h1>Cadenza</h1>
+    <h4>A marketplace to share your talents within your community.</h4>
   <% find_notifications %>
   <% if @can_clear %>
     <%= link_to "Clear notifications", clear_notifications_path %>
