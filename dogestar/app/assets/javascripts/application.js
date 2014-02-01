@@ -14,8 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require bootstrap.min
 //= require jquery.ui.datepicker
 //= require jquery.ui.slider
 //= require jquery-ui-timepicker-addon
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require_tree .

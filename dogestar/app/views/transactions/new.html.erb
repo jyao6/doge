@@ -1,5 +1,4 @@
 <% provide(:title, 'Order') %>
-<%= javascript_include_tag "transactions_new" %>
 <h1>Order</h1>
 
 <div class="row">
@@ -21,3 +20,12 @@
     <% end %>
   </div>
 </div>
+
+<script>
+jQuery(function() {
+    return $('.datepicker').datetimepicker({
+        timeFormat: "hh:mm tt",
+        dateFormat: "yy-mm-dd"
+    });
+});
+</script>
