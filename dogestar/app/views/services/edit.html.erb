@@ -2,7 +2,7 @@
 	<%= form_for(@service) do |f| %>
 		<%= render 'fields', f: f %>
     <%= f.submit "Update Service", class: "btn btn-large btn-primary" %>
-      <div id="cancel" class="btn btn-large btn-primary" style="background-color:white;color:#3399FF"><%= link_to "Cancel", :back %></div>
+      <div id="cancel" class="btn btn-large btn-primary" style="background-color:white;color:#3399FF"><%= link_to "Cancel", @service %></div>
 
     <% end %>
 
